@@ -21,7 +21,7 @@ app.use('/blogs', require('./routes/blog'))
 
 app.get('*', (req, res) => {
   res.status(400).json({
-    msg: 'Bad request, Please contact sumanthtps@gmail.com for more details'
+    message: 'Please provide some endpoint, Contact sumanthtps@gmail.com for more details'
   })
 })
 app.listen(4000, () => {
