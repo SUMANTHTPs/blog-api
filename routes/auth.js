@@ -22,7 +22,7 @@ router.post("/login", async (req, res) => {
             {}
         );
 
-        res.cookie('token', token, { httpOnly: false, secure: false }).json({ message: 'ok', token: token });
+        res.cookie('token', token, { httpOnly: false, secure: false, path: '/' }).json({ message: 'ok', token: token });
         console.log(token);
     } catch (error) {
         console.error(error);
@@ -55,6 +55,7 @@ router.get('/profile', async (req, res) => {
     console.log('req' + req.headers);
     console.log('req' + req.cookies.cookie);
     console.log('token ' + token);
+    console.log('params ' + req.params);
 
     try {
         const decodedToken = jwt.verify(token, secret);
