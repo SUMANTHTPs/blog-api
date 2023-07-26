@@ -51,9 +51,11 @@ router.post("/register", async (req, res) => {
 
 router.get('/profile', async (req, res) => {
     const { token } = req.cookies;
+    console.log('token '+ token);
+    console.log('token '+ secret);
 
     try {
-        const decodedToken = await jwt.verify(token, secret);
+        const decodedToken = jwt.verify(token, secret);
         res.json(decodedToken);
     } catch (error) {
         console.error('Verification Error:', error);
