@@ -8,22 +8,24 @@ require('dotenv').config();
 const saltRounds = 10;
 const secret = process.env.APP_JWT_SECRET;
 
-router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    const userDoc = await User.findOne({ username });
-    const passOk = bcrypt.compareSync(password, userDoc.password);
-    if (passOk || userDoc) {
-        // logged in
-        jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
-            if (err) throw err;
-            res.cookie('token', token).json({
-                id: userDoc._id,
-                username,
-                token: token
-            });
-        });
-    } else {
-        res.status(400).json('wrong credentials');
+router.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const userDoc = await User.findOne({ email });
+        if (!userDoc || !bcrypt.compareSync(password, userDoc.password)) {
+            return res.status(400).json('Invalid credentials');
+        }
+
+        const token = jwt.sign(
+            { username: userDoc.username, id: userDoc._id },
+            secret,
+            {}
+        );
+
+        res.cookie('token', token).json('ok');
+    } catch (error) {
+        console.error(error);
+        res.status(500).json('Server error');
     }
 });
 

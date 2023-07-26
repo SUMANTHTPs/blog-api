@@ -8,7 +8,7 @@ require('dotenv').config();
 
 connectToMongoDB();
 const corsOrigin = `${process.env.CORS_ORIGIN}`
-app.use(cors({ credentials: true, origin: corsOrigin, allowedHeaders: true }));
+app.use(cors({ credentials: true, origin: corsOrigin }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload({
