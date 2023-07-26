@@ -24,7 +24,7 @@ router.post("/login", async (req, res) => {
 
         // res.cookie('token', token).json('ok');
         // Set the cookie with SameSite=None and Secure options
-        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'lax' }).json({
+        res.cookie('token', token, { secure: true, sameSite: 'lax' }).json({
             id: userDoc._id,
             username,
             token: token,
