@@ -8,11 +8,7 @@ require('dotenv').config();
 
 connectToMongoDB();
 const corsOrigin = `${process.env.CORS_ORIGIN}`
-app.use(cors({ credentials: true, origin: corsOrigin }));
-// app.use("*", cors({
-//   origin: true,
-//   credentials: true,
-// }))
+app.use(cors({ credentials: true, origin: corsOrigin, allowedHeaders: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload({
@@ -25,12 +21,10 @@ app.use('/blogs', require('./routes/blog'))
 
 app.get('*', (req, res) => {
   res.status(400).json({
-    message: 'Please provide some endpoint, Contact sumanthtps@gmail.com for more details'
+    msg: 'Please enter valid endpoint, Contact sumanthtps@gmail.com for more details'
   })
 })
 app.listen(4000, () => {
   console.log('Running server');
 });
-
-module.exports = app;
 
