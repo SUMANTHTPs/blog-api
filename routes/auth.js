@@ -24,7 +24,7 @@ router.post("/login", async (req, res) => {
 
         res.cookie('token', token).json('ok');
         console.log(token);
-        res.status(200).cookie('token', token, { domain: process.env.NODE_ENV === 'development' ? '.localhost' : '' }).json('ok')
+        res.status(200).cookie('token', token, { domain: process.env.NODE_ENV ===  '.localhost'}).json('ok')
     } catch (error) {
         console.error(error);
         res.status(500).json('Server error');
