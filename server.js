@@ -8,7 +8,6 @@ require('dotenv').config();
 
 connectToMongoDB();
 const corsOrigin = `${process.env.CORS_ORIGIN}`
-corsOrigin = 'http://localhost:3000/'
 console.log(corsOrigin);
 app.use(cors({ credentials: true, origin: corsOrigin }));
 
