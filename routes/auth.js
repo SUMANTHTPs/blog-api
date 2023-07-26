@@ -51,7 +51,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.get('/profile', async (req, res) => {
-    const { token } = req.cookies;
+    const { token } = req.headers.cookie;
     console.log('token '+ token);
     console.log('token '+ secret);
 
