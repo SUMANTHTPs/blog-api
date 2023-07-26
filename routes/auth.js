@@ -23,6 +23,7 @@ router.post("/login", async (req, res) => {
         );
 
         res.cookie('token', token).json('ok');
+        console.log(token);
     } catch (error) {
         console.error(error);
         res.status(500).json('Server error');
