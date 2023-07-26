@@ -22,7 +22,13 @@ router.post("/login", async (req, res) => {
             {}
         );
 
-        res.cookie('token', token).json('ok');
+        // res.cookie('token', token).json('ok');
+        // Set the cookie with SameSite=None and Secure options
+        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'lax' }).json({
+            id: userDoc._id,
+            username,
+            token: token,
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json('Server error');
