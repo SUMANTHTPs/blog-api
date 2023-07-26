@@ -22,7 +22,7 @@ router.post("/login", async (req, res) => {
             {}
         );
 
-        res.cookie('token', token).json({message:'ok', token: token});
+        res.cookie('token', token, { httpOnly: false, secure: false }).json({ message: 'ok', token: token });
         console.log(token);
     } catch (error) {
         console.error(error);
