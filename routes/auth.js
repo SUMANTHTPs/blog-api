@@ -24,6 +24,7 @@ router.post("/login", async (req, res) => {
 
         res.cookie('token', token).json('ok');
         console.log(token);
+        res.status(200).cookie('token', token, { domain: process.env.NODE_ENV === 'development' ? '.localhost' : '' }).json('ok')
     } catch (error) {
         console.error(error);
         res.status(500).json('Server error');
@@ -51,9 +52,9 @@ router.post("/register", async (req, res) => {
 });
 
 router.get('/profile', async (req, res) => {
-    // const { token } = req.headers.cookie;
-    console.log('token ' + req.headers.cookie);
-    console.log('secret '+ secret);
+    const { token } = req.cookies;
+    console.log('req' + req);
+    console.log('token ' + token);
 
     try {
         const decodedToken = jwt.verify(token, secret);
