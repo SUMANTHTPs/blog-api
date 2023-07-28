@@ -22,7 +22,7 @@ router.post("/login", async (req, res) => {
             {}
         );
 
-        res.cookie('token', token, { sameSite: 'none' }).json('ok');
+        res.cookie('token', token).json('ok');
         // Set the cookie with SameSite=None and Secure options
         // res.cookie('token', token).json({
         //     id: userDoc._id,
