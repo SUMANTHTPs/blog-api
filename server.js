@@ -11,7 +11,6 @@ const corsOrigin = `${process.env.CORS_ORIGIN}`
 console.log(corsOrigin);
 app.use(cors({ credentials: true, origin: corsOrigin }));
 
-
 app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload({

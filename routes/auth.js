@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebjwtToken');
 require('dotenv').config();
 
 const saltRounds = 10;
@@ -16,19 +16,13 @@ router.post("/login", async (req, res) => {
             return res.status(400).json('Invalid credentials');
         }
 
-        const token = jwt.sign(
+        const jwtToken = jwt.sign(
             { username: userDoc.username, id: userDoc._id },
             secret,
             {}
         );
 
-        res.cookie('token', token).json('ok');
-        // Set the cookie with SameSite=None and Secure options
-        // res.cookie('token', token).json({
-        //     id: userDoc._id,
-        //     username,
-        //     token: token,
-        // });
+        res.cookie('jwtjwtToken', jwtToken).json('ok');
     } catch (error) {
         console.error(error);
         res.status(500).json('Server error');
@@ -56,12 +50,12 @@ router.post("/register", async (req, res) => {
 });
 
 router.get('/profile', (req, res) => {
-    const { token } = req.cookies;
+    const { jwtToken } = req.cookies;
 
-    console.log('token ' + token);
+    console.log('jwtToken ' + jwtToken);
     console.log('secret ' + secret);
 
-    jwt.verify(token, secret, {}, (err, info) => {
+    jwt.verify(jwtToken, secret, {}, (err, info) => {
         if (err) {
             console.error('Verification Error:', err);
             res.status(401).json({ message: 'Unauthorized' });
@@ -71,7 +65,7 @@ router.get('/profile', (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-    res.clearCookie('token').json('ok');
+    res.clearCookie('jwtjwtToken').json('ok');
 });
 
 module.exports = router

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebjwtToken');
 const Post = require('../models/posts');
 const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
@@ -15,9 +15,9 @@ cloudinary.config({
 
 router.post('/post', async (req, res) => {
     const { tempFilePath } = req.files.file;
-    const { token } = req.cookies;
+    const { jwtToken } = req.cookies;
     let information = null;
-    jwt.verify(token, secret, {}, async (err, info) => {
+    jwt.verify(jwtToken, secret, {}, async (err, info) => {
         if (err) throw err;
         information = info;
     });
@@ -80,8 +80,8 @@ router.put("/post", async (req, res) => {
         }
     }
 
-    const { token } = req.cookies;
-    jwt.verify(token, secret, {}, async (err, info) => {
+    const { jwtToken } = req.cookies;
+    jwt.verify(jwtToken, secret, {}, async (err, info) => {
         if (err) throw err;
         const { id, title, summary, content } = req.body;
         const postDoc = await Post.findById(id);
