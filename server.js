@@ -8,14 +8,15 @@ require('dotenv').config();
 
 connectToMongoDB();
 const corsOrigin = `${process.env.CORS_ORIGIN}`
-console.log(corsOrigin);
 app.use(cors({ credentials: true, origin: corsOrigin }));
-
 app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload({
   useTempFiles: true
 }))
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*")
+}) 
 
 
 app.use('/auth', require('./routes/auth'))
@@ -23,7 +24,7 @@ app.use('/blogs', require('./routes/blog'))
 
 app.get('*', (req, res) => {
   res.status(400).json({
-    msg: 'Please enter valid endpoint, Contact sumanthtps@gmail.com for more details'
+    msg: 'Bad request, Please contact sumanthtps@gmail.com for more details'
   })
 })
 app.listen(4000, () => {
