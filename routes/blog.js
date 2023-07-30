@@ -15,9 +15,9 @@ cloudinary.config({
 
 router.post('/post', async (req, res) => {
     const { tempFilePath } = req.files.file;
-    const { jwtToken } = req.cookies;
+    const { authToken } = req.cookies;
     let information = null;
-    jwt.verify(jwtToken, secret, {}, async (err, info) => {
+    jwt.verify(authToken, secret, {}, async (err, info) => {
         if (err) throw err;
         information = info;
     });
@@ -80,8 +80,8 @@ router.put("/post", async (req, res) => {
         }
     }
 
-    const { jwtToken } = req.cookies;
-    jwt.verify(jwtToken, secret, {}, async (err, info) => {
+    const { authToken } = req.cookies;
+    jwt.verify(authToken, secret, {}, async (err, info) => {
         if (err) throw err;
         const { id, title, summary, content } = req.body;
         const postDoc = await Post.findById(id);
