@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebjwtToken');
+const jwt = require('jsonwebtoken');
 const Post = require('../models/posts');
 const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
