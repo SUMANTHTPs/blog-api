@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebauthToken');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const saltRounds = 10;
